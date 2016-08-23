@@ -1,0 +1,15 @@
+version: '2'
+services:
+  redis:
+    image: redis
+  sinatra:
+    build: .
+    command: bundle exec ruby app.rb -o '0.0.0.0'
+    volumes:
+      - .:/myapp
+    ports:
+      - '4567:4567'
+    environment:
+      REDIS_URL: redis://redis:6379/15
+    links:
+      - redis
